@@ -27,7 +27,7 @@ public class LoginTest {
         $("[data-test-id='password'] input").setValue(user.getPassword());
         $("[data-test-id='action-login']").click();
 
-        $(".App_appContainer__3jRx1").shouldBe(Condition.visible, Duration.ofSeconds(5));
+         $("h2").shouldHave(Condition.text("Личный кабинет"), Duration.ofSeconds(5));
     }
 
     // Тест 2: Попытка входа заблокированного пользователя
@@ -51,7 +51,8 @@ public class LoginTest {
         RegistrationDto user = DataGenerator.createUser("active");
 
         $("[data-test-id='login'] input").setValue(user.getLogin());
-        $("[data-test-id='password'] input").setValue("wrongPassword");
+        String wrongPassword = DataGenerator.generatePassword();
+        $("[data-test-id='password'] input").setValue(wrongPassword);
         $("[data-test-id='action-login']").click();
 
         $("[data-test-id='error-notification']")
